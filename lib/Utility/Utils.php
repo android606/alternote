@@ -21,7 +21,7 @@
  *
  */
 
-namespace OCA\NextNote\Utility;
+namespace OCA\Alternote\Utility;
 
 class Utils {
     /**

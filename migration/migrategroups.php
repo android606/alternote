@@ -21,14 +21,14 @@
  *
  */
 
-namespace OCA\NextNote\Migration;
+namespace OCA\Alternote\Migration;
 
 
-use OCA\NextNote\Db\Notebook;
-use OCA\NextNote\Db\Note;
-use OCA\NextNote\Service\NotebookService;
-use OCA\NextNote\Service\NoteService;
-use OCA\NextNote\Utility\Utils;
+use OCA\Alternote\Db\Notebook;
+use OCA\Alternote\Db\Note;
+use OCA\Alternote\Service\NotebookService;
+use OCA\Alternote\Service\NoteService;
+use OCA\Alternote\Utility\Utils;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\ILogger;

@@ -21,13 +21,13 @@
  *
  */
 
-namespace OCA\NextNote\Controller;
+namespace OCA\Alternote\Controller;
 
-use OCA\NextNote\Db\Notebook;
-use OCA\NextNote\Service\NotebookService;
-use OCA\NextNote\Utility\NotFoundJSONResponse;
-use OCA\NextNote\Utility\UnauthorizedJSONResponse;
-use OCA\NextNote\Utility\Utils;
+use OCA\Alternote\Db\Notebook;
+use OCA\Alternote\Service\NotebookService;
+use OCA\Alternote\Utility\NotFoundJSONResponse;
+use OCA\Alternote\Utility\UnauthorizedJSONResponse;
+use OCA\Alternote\Utility\Utils;
 use \OCP\AppFramework\ApiController;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\EventDispatcher\IEventDispatcher;

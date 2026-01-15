@@ -21,6 +21,6 @@
  *
  */
 
-namespace OCA\NextNote\AppInfo;
+namespace OCA\Alternote\AppInfo;
 
 

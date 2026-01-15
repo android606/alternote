@@ -21,7 +21,7 @@
  *
  */
 
-namespace OCA\NextNote\Db;
+namespace OCA\Alternote\Db;
 
 use \OCP\AppFramework\Db\Entity;
 

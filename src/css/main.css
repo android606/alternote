@@ -1,0 +1,398 @@
+/**
+ * Nextcloud - Alternote
+ * Main CSS file (converted from SASS)
+ *
+ * @copyright Copyright (c) 2026, Andrew Mark
+ * @license GNU AGPL version 3 or any later version
+ */
+
+#app-content.content-with-sidebar {
+	width: 60%;
+}
+
+#emptycontent, .emptycontent {
+	color: #888;
+	text-align: center;
+	margin-top: 30vh;
+	width: 100%;
+}
+
+#emptycontent [class^="icon-"], .emptycontent [class^="icon-"],
+#emptycontent [class*=" icon-"], .emptycontent [class*=" icon-"] {
+	background-size: 64px;
+	height: 64px;
+	width: 64px;
+	margin: 0 auto 15px;
+	opacity: 0.4;
+}
+
+.icon-note, .icon-filetype-note {
+	background-image: url("../../img/app-icon.svg");
+}
+
+#emptycontent h2, .emptycontent h2 {
+	margin-bottom: 10px;
+	line-height: 150%;
+}
+
+.listing {
+	height: 40pt;
+	font-style: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0;
+	font-size: 100%;
+	font-family: inherit;
+	line-height: 40pt;
+	white-space: nowrap;
+	padding: 0 15pt;
+	width: 100%;
+}
+
+.listingTable {
+	width: 100%;
+}
+
+.listingSort {
+	height: 54pt;
+	font-style: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0;
+	font-size: 100%;
+	font-family: inherit;
+	line-height: 40pt;
+	white-space: nowrap;
+	padding: 0;
+	width: 100%;
+}
+
+.listingSort thead tr th:first-child,
+.listingSort tbody tr td:first-child {
+	padding-left: 15px;
+}
+
+.listingSort tr > td.actions {
+	width: 50%;
+}
+
+.listingSort tr > td.info {
+	width: 25%;
+	padding-right: 15px;
+}
+
+.listingSort tr > td {
+	border-top: 1px solid #EEE;
+}
+
+.listingBlank {
+	height: 40pt;
+	font-style: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin: 0;
+	font-size: 100%;
+	font-family: inherit;
+	line-height: 40pt;
+	white-space: nowrap;
+	padding: 0;
+	width: 100%;
+}
+
+.listing:hover {
+	background-color: #EEE;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.file {
+	font-weight: bold;
+	line-height: 15px;
+	width: 350px;
+}
+
+@media screen and (max-width: 1200px) {
+	.file {
+		width: 150px;
+	}
+}
+
+.file .caption {
+	width: 100px;
+	display: inline-block;
+}
+
+@media screen and (min-width: 420px) {
+	.file .caption {
+		width: 180px;
+	}
+}
+
+@media screen and (min-width: 720px) {
+	.file .caption {
+		width: 450px;
+	}
+}
+
+@media screen and (min-width: 920px) {
+	.file .caption {
+		width: 600px;
+	}
+}
+
+@media screen and (min-width: 994px) {
+	.file .caption {
+		width: 150px;
+	}
+}
+
+@media screen and (min-width: 1600px) {
+	.file .caption {
+		width: 300px;
+	}
+}
+
+.file .caption small {
+	color: #959595;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+	display: block;
+}
+
+.actions {
+	padding-right: 15pt;
+}
+
+.view-container {
+	display: flex;
+}
+
+.view-container .view-left {
+	float: left;
+	width: 50%;
+	height: calc(100vh - 45px);
+	overflow-y: auto;
+}
+
+.view-container .view-right {
+	float: left;
+	width: 50%;
+	height: calc(100vh - 45px);
+	overflow: auto;
+	border-left: 1px solid #c9c9c9;
+}
+
+.view-container .view-right .controls {
+	padding-left: 0;
+}
+
+.view-container .view-right .controls .autosave {
+	font-size: 16px;
+	line-height: 44px;
+	height: 44px;
+	padding-right: 15px;
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s 0.5s, opacity 0.5s linear;
+}
+
+.view-container .view-right .controls .autosave.shown {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 0.5s linear;
+}
+
+.info {
+	/* width: 30%; */
+}
+
+.modified {
+	display: inline-block;
+	width: 100%;
+}
+
+.buttons {
+	background-repeat: no-repeat;
+	background-position: center center;
+	float: right;
+	height: 26pt;
+	margin-left: 15pt;
+	width: 26pt;
+}
+
+.button {
+	display: inline-block;
+}
+
+.edit {
+	opacity: 0.3;
+}
+
+.edit:hover {
+	opacity: 1;
+}
+
+.delete {
+	background-image: url("../../img/delete.png");
+	opacity: 0.3;
+}
+
+.delete:hover {
+	opacity: 1;
+}
+
+.hidden {
+	display: none !important;
+}
+
+.edit-note {
+	background-image: url("../../../core/img/actions/rename.svg");
+	opacity: 0.3;
+}
+
+.edit-note:hover {
+	opacity: 1;
+}
+
+.restore-note {
+	background-image: url('../../../core/css/../img/actions/history.svg?v=1');
+	opacity: 0.3;
+}
+
+.restore-note:hover {
+	opacity: 1;
+}
+
+.indent {
+	margin-left: 10pt;
+}
+
+.notesort {
+	font-weight: normal;
+	color: #A0A0A0;
+}
+
+.notesort > span {
+	float: left;
+}
+
+.sortarrow {
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 20pt;
+	height: 20pt;
+	float: left;
+	margin-top: 10pt;
+	opacity: 0.3;
+}
+
+.sortup {
+	background-image: url("../../img/triangle-n.svg");
+}
+
+.sortdown {
+	background-image: url("../../img/triangle-s.svg");
+}
+
+.sorttitle {
+	float: left;
+}
+
+.fileinput {
+	width: 80pt;
+	height: 36px;
+	display: inline-block;
+	color: #A0A0A0;
+}
+
+.newfileinput {
+	width: 80pt;
+	height: 36px;
+	display: inline-block;
+}
+
+#grouplist .add_group_container {
+	padding: 0 5px;
+}
+
+#grouplist .add_group_container input#new_group_name {
+	width: 150px;
+}
+
+#grouplist > li {
+	height: 44px;
+}
+
+#app-navigation .active {
+	font-weight: bold;
+}
+
+#app-navigation .utils {
+	bottom: 0;
+	font-size: 12px;
+	padding: 7px 7px 0 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+#app-navigation .utils .numnotes {
+	padding-right: 10px;
+	text-align: right;
+}
+
+.action:not(.text), .icon:not(.text),
+[class^="icon-"]:not(.text), [class*=" icon-"]:not(.text) {
+	display: inline-block;
+	height: 16px;
+	margin: 0;
+	padding: 0;
+	width: 16px;
+}
+
+[class^="icon-"], [class*=" icon-"], .action, .icon {
+	background-repeat: no-repeat;
+}
+
+.nav-trashbin {
+	bottom: 0;
+}
+
+.nav-trashbin .nav-icon-trashbin {
+	background-image: url(../../../apps/files/css/../img/delete.svg?v=1);
+	padding-left: 44px !important;
+	background-size: 16px 16px;
+	background-position: 14px center;
+	background-repeat: no-repeat;
+}
+
+.note-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: block !important;
+}
+
+.view-note-container h1 {
+	font-size: 28px;
+	line-height: 28px;
+	margin-bottom: 10px;
+}
+
+.view-note-container .noteContent,
+.view-note-container h1 {
+	padding-left: 10pt;
+	padding-right: 10pt;
+}
+
+.edit-note-container .controls {
+	position: static;
+	left: 0 !important;
+}
+
+#alternote-app {
+	overflow: hidden;
+}

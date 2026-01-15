@@ -9,7 +9,7 @@
  * @copyright Ben Curtis 2015
  */
 
-namespace OCA\NextNote\Controller;
+namespace OCA\Alternote\Controller;
 
 use \OCP\AppFramework\ApiController;
 use \OCP\IRequest;

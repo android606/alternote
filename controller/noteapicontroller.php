@@ -21,14 +21,14 @@
  *
  */
 
-namespace OCA\NextNote\Controller;
+namespace OCA\Alternote\Controller;
 
-use OCA\NextNote\Db\Notebook;
-use OCA\NextNote\Db\Note;
-use OCA\NextNote\Service\NotebookService;
-use OCA\NextNote\Service\NoteService;
-use OCA\NextNote\Utility\NotFoundJSONResponse;
-use OCA\NextNote\Utility\Utils;
+use OCA\Alternote\Db\Notebook;
+use OCA\Alternote\Db\Note;
+use OCA\Alternote\Service\NotebookService;
+use OCA\Alternote\Service\NoteService;
+use OCA\Alternote\Utility\NotFoundJSONResponse;
+use OCA\Alternote\Utility\Utils;
 use \OCP\AppFramework\ApiController;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\Constants;

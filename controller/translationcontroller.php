@@ -21,7 +21,7 @@
  *
  */
 
-namespace OCA\NextNote\Controller;
+namespace OCA\Alternote\Controller;
 
 
 use \OCP\AppFramework\ApiController;

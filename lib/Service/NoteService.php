@@ -21,13 +21,13 @@
  *
  */
 
-namespace OCA\NextNote\Service;
+namespace OCA\Alternote\Service;
 
-use OCA\NextNote\Db\Notebook;
-use OCA\NextNote\Db\Note;
-use OCA\NextNote\Fixtures\ExampleNote;
-use OCA\NextNote\Utility\Utils;
-use OCA\NextNote\Db\NoteMapper;
+use OCA\Alternote\Db\Notebook;
+use OCA\Alternote\Db\Note;
+use OCA\Alternote\Fixtures\ExampleNote;
+use OCA\Alternote\Utility\Utils;
+use OCA\Alternote\Db\NoteMapper;
 
 
 class NoteService {

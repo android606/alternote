@@ -20,13 +20,13 @@
  *
  */
 
-namespace OCA\NextNote\Controller;
+namespace OCA\Alternote\Controller;
 
 use OCP\IL10N;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\ApiController;
 use OCP\IRequest;
-use OCA\NextNote\Service\SettingsService;
+use OCA\Alternote\Service\SettingsService;
 
 class SettingsController extends ApiController {
 	private $userId;

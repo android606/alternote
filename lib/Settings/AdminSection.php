@@ -22,7 +22,7 @@
  */
 
 
-namespace OCA\NextNote\Settings;
+namespace OCA\Alternote\Settings;
 
 
 use OCP\IL10N;

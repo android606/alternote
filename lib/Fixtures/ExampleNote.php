@@ -21,7 +21,7 @@
  *
  */
 
-namespace OCA\NextNote\Fixtures;
+namespace OCA\Alternote\Fixtures;
 
 class ExampleNote {
 	const TITLE = 'Welcome to NextNote';

@@ -21,7 +21,7 @@
  *
  */
 
-namespace OCA\NextNote\Migration;
+namespace OCA\Alternote\Migration;
 
 
 use OCP\IDBConnection;

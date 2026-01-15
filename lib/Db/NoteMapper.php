@@ -21,10 +21,10 @@
  *
  */
 
-namespace OCA\NextNote\Db;
+namespace OCA\Alternote\Db;
 
-use OCA\NextNote\Service\NotebookService;
-use \OCA\NextNote\Utility\Utils;
+use OCA\Alternote\Service\NotebookService;
+use \OCA\Alternote\Utility\Utils;
 use OCP\AppFramework\Db\Entity;
 use OCP\IDBConnection;
 use OCP\AppFramework\Db\Mapper;

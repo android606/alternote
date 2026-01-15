@@ -21,11 +21,11 @@
  *
  */
 
-namespace OCA\NextNote\Controller;
+namespace OCA\Alternote\Controller;
 
 
-use OCA\NextNote\Service\NoteService;
-use OCA\NextNote\Service\SettingsService;
+use OCA\Alternote\Service\NoteService;
+use OCA\Alternote\Service\SettingsService;
 use \OCP\IRequest;
 use \OCP\AppFramework\Http\TemplateResponse;
 use \OCP\AppFramework\Controller;
