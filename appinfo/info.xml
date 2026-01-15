@@ -37,6 +37,7 @@
             <order>10</order>
             <icon>app.svg</icon>
             <route>alternote.page.index</route>
+            <route>alternote.page.index</route>
         </navigation>
     </navigations>
 </info>
