@@ -3,12 +3,13 @@
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>alternote</id>
     <name>Alternote</name>
-    <summary>NextNote</summary>
-    <description>NextNote</description>
-    <version>1.2.5</version>
+    <summary>Alternote</summary>
+    <description>Alternote</description>
+    <version>2.0.0</version>
     <licence>agpl</licence>
     <author>Ben Curtis</author>
     <author>Sander Brand</author>
+    <author>Andrew Mark</author>
     <namespace>NextNote</namespace>
 
     <category>office</category>
@@ -36,7 +37,6 @@
             <name>Notes</name>
             <order>10</order>
             <icon>app.svg</icon>
-            <route>alternote.page.index</route>
             <route>alternote.page.index</route>
         </navigation>
     </navigations>
