@@ -97,16 +97,27 @@ export default {
 		})
 
 		const loadNote = async () => {
-			const noteId = props.id || route.params.id
+			const noteId = route.params.id || props.id
 			if (noteId && noteId !== 'new') {
 				try {
 					const loadedNote = await noteService.get(noteId)
 					note.value = loadedNote
-					selectedNotebookId.value = loadedNote.notebook || null
+					selectedNotebookId.value = loadedNote.notebook || loadedNote.notebook_id || null
 				} catch (error) {
 					showError(t('alternote', 'Failed to load note'))
 					console.error(error)
 				}
+			} else if (noteId === 'new') {
+				// Reset to new note state
+				note.value = {
+					id: null,
+					title: '',
+					content: '',
+					notebook_id: null,
+					owner: { uid: OC.getCurrentUser().uid },
+					permissions: OC.PERMISSION_ALL
+				}
+				selectedNotebookId.value = null
 			}
 		}
 
@@ -157,7 +168,9 @@ export default {
 
 		const hasPermission = (note, perm) => {
 			if (!note.owner || !note.owner.uid) return false
-			if (note.owner.uid === OC.currentUser) return true
+			const currentUser = OC.getCurrentUser()
+			if (!currentUser || !currentUser.uid) return false
+			if (note.owner.uid === currentUser.uid) return true
 			const permission = `PERMISSION_${perm.toUpperCase()}`
 			return note.permissions & OC[permission]
 		}

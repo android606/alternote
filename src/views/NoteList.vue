@@ -49,7 +49,7 @@
 							<td :title="note.title" class="file pointer">
 								<div class="caption note-title">{{ note.title }}</div>
 								<div class="caption">
-									<small>{{ getPlainContent(note.content_plain) }}</small>
+									<small>{{ getPlainContent(note.note || note.content || '') }}</small>
 								</div>
 							</td>
 							<td class="actions" v-if="!showDeleted">
@@ -157,7 +157,7 @@ export default {
 		}
 
 		const newNote = () => {
-			router.push('/note/new')
+			router.push('/note/edit/new')
 		}
 
 		const deleteNote = async (note) => {
@@ -189,14 +189,20 @@ export default {
 
 		const hasPermission = (note, perm) => {
 			if (!note.owner || !note.owner.uid) return false
-			if (note.owner.uid === OC.currentUser) return true
+			const currentUser = OC.getCurrentUser()
+			if (!currentUser || !currentUser.uid) return false
+			if (note.owner.uid === currentUser.uid) return true
 			const permission = `PERMISSION_${perm.toUpperCase()}`
 			return note.permissions & OC[permission]
 		}
 
 		const getPlainContent = (content) => {
 			if (!content) return ''
-			return content.substring(0, 500)
+			// Strip HTML tags if present
+			const tmp = document.createElement('DIV')
+			tmp.innerHTML = content
+			const plainText = tmp.textContent || tmp.innerText || ''
+			return plainText.substring(0, 500)
 		}
 
 		const formatDate = (timestamp) => {

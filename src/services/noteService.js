@@ -13,15 +13,16 @@ const API_BASE = generateUrl('/apps/alternote/api/v2')
 export const noteService = {
 	async getAll(deleted = false, notebookId = null) {
 		const params = {}
-		if (deleted !== false) params.deleted = deleted
-		if (notebookId) params.notebook_id = notebookId
+		if (deleted !== false) params.deleted = deleted ? 1 : 0
+		if (notebookId !== null && notebookId !== 'all') params.notebook_id = notebookId
 
 		const response = await axios.get(`${API_BASE}/note`, { params })
 		const notes = {}
-		for (const key in response.data) {
-			if (response.data.hasOwnProperty(key) && !isNaN(key)) {
-				const note = response.data[key]
-				note.mtime = note.mtime * 1000 // Convert to JS timestamp
+		// Handle both array and object responses
+		const dataArray = Array.isArray(response.data) ? response.data : Object.values(response.data || {})
+		for (const note of dataArray) {
+			if (note && note.id) {
+				note.mtime = (note.mtime || 0) * 1000 // Convert to JS timestamp
 				notes[note.id] = note
 			}
 		}

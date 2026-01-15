@@ -47,7 +47,10 @@ export default {
 			'sv': 'sv_SE',
 		}
 
-		let locale = OC.getLocale().replace('-', '_')
+		let locale = 'en'
+		if (typeof OC !== 'undefined' && OC.getLocale) {
+			locale = OC.getLocale().replace('-', '_')
+		}
 		if (langMapper.hasOwnProperty(locale)) {
 			locale = langMapper[locale]
 		}
@@ -81,6 +84,10 @@ export default {
 			autoresize_max_height: editorHeight.value - 140,
 			file_picker_types: 'file image media',
 			file_picker_callback: (callback, value, meta) => {
+				if (typeof OC === 'undefined' || !OC.dialogs || !OC.dialogs.filepicker) {
+					console.warn('OC.dialogs.filepicker not available')
+					return
+				}
 				if (meta.filetype === 'file') {
 					OC.dialogs.filepicker('Pick a file', (file) => {
 						const filePath = OC.linkToRemote('webdav') + file
@@ -91,7 +98,9 @@ export default {
 						const allowedExtensions = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webm']
 						const extension = file.split('.').pop()
 						if (allowedExtensions.indexOf(extension) < 0) {
-							OC.Notification.showTemporary('File extension not allowed')
+							if (OC.Notification && OC.Notification.showTemporary) {
+								OC.Notification.showTemporary('File extension not allowed')
+							}
 							return
 						}
 						const filePath = OC.linkToRemote('webdav') + file
