@@ -6,14 +6,15 @@
  */
 
 import { createRouter, createWebHashHistory } from 'vue-router'
+import NoteList from './views/NoteList.vue'
 import NoteEdit from './views/NoteEdit.vue'
 import NoteView from './views/NoteView.vue'
 
 const routes = [
 	{
 		path: '/',
-		name: 'Home',
-		component: { template: '<div></div>' }
+		name: 'NoteList',
+		component: NoteList
 	},
 	{
 		path: '/note/edit/:id?',

@@ -77,7 +77,7 @@
 				</table>
 			</div>
 			<div class="view-right">
-				<!-- Note editor/view will be shown via router -->
+				<router-view />
 			</div>
 		</div>
 	</div>

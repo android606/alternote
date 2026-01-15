@@ -12,14 +12,13 @@
 			/>
 		</div>
 		<div id="app-content">
-			<NoteList
+			<router-view
 				:notes="notes"
 				:notebooks="notebooks"
 				:selected-notebook="selectedNotebook"
 				:show-deleted="showDeleted"
 				@refresh="loadData"
 			/>
-			<router-view />
 		</div>
 	</div>
 </template>
@@ -29,13 +28,11 @@ import { ref, onMounted, provide } from 'vue'
 import { noteService } from './services/noteService'
 import { notebookService } from './services/notebookService'
 import NotebookSidebar from './components/NotebookSidebar.vue'
-import NoteList from './views/NoteList.vue'
 
 export default {
 	name: 'App',
 	components: {
-		NotebookSidebar,
-		NoteList
+		NotebookSidebar
 	},
 	setup() {
 		const notes = ref({})
