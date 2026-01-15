@@ -29,6 +29,8 @@ use OCA\NextNote\Service\SettingsService;
 use \OCP\IRequest;
 use \OCP\AppFramework\Http\TemplateResponse;
 use \OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\ContentSecurityPolicy;
+use OCP\AppFramework\Http\ContentSecurityPolicyNonceManager;
 
 
 class PageController extends Controller {
@@ -36,14 +38,17 @@ class PageController extends Controller {
 	private $userId;
 	private $config;
 	private $noteService;
+	private $nonceManager;
 
 	public function __construct($appName, IRequest $request, $userId,
 								SettingsService $settings,
-								NoteService $noteService) {
+								NoteService $noteService,
+								ContentSecurityPolicyNonceManager $nonceManager) {
 		parent::__construct($appName, $request);
 		$this->userId = $userId;
 		$this->config = $settings;
 		$this->noteService = $noteService;
+		$this->nonceManager = $nonceManager;
 	}
 
 
@@ -59,7 +64,12 @@ class PageController extends Controller {
 	 */
 	public function index() {
 		$shareMode = $this->config->getAppSetting('sharemode', 'merge'); // merge or standalone
-		$params = array('user' => $this->userId, 'shareMode' => $shareMode, 'config'=> $this->config->getSettings());
+		$params = array(
+			'user' => $this->userId,
+			'shareMode' => $shareMode,
+			'config' => $this->config->getSettings(),
+			'nonce' => $this->nonceManager->getNonce()
+		);
 
 		if($this->config->getUserSetting('first_user', '1') === '1'){
 			$this->noteService->createExampleNote($this->userId);

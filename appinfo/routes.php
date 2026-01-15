@@ -21,53 +21,38 @@
  *
  */
 
-namespace OCA\NextNote\AppInfo;
+return [
+    "routes" => [
+        ["name" => "page#index", "url" => "/", "verb" => "GET"],
 
-/**
- * Create your routes in here. The name is the lowercase name of the controller
- * without the controller part, the stuff after the hash is the method.
- * e.g. page#index -> PageController->index()
- *
- * The controller class has to be registered in the application.php file since
- * it's instantiated in there
- */
-$application = new Application();
+        // V2 API
+        ["name" => "note_api#preflighted_cors", "url" => "/api/v2/{path}", "verb" => "OPTIONS", "requirements" => ["path" => ".+"]],
 
-$application->registerRoutes($this, array('routes' => array(
+        //Notes
+        ["name" => "note_api#index", "url" => "/api/v2/note", "verb" => "GET"],
+        ["name" => "note_api#create", "url" => "/api/v2/note", "verb" => "POST"],
+        ["name" => "note_api#get", "url" => "/api/v2/note/{id}", "verb" => "GET"],
+        ["name" => "note_api#update", "url" => "/api/v2/note/{id}", "verb" => "PUT"],
+        ["name" => "note_api#delete", "url" => "/api/v2/note/{id}", "verb" => "DELETE"],
 
-	array('name' => 'page#index', 'url' => '/', 'verb' => 'GET'),
+        //Groups
+        ["name" => "notebook_api#index", "url" => "/api/v2/notebook", "verb" => "GET"],
+        ["name" => "notebook_api#create", "url" => "/api/v2/notebook", "verb" => "POST"],
+        ["name" => "notebook_api#get", "url" => "/api/v2/notebook/{id}", "verb" => "GET"],
+        ["name" => "notebook_api#update", "url" => "/api/v2/notebook/{id}", "verb" => "PUT"],
+        ["name" => "notebook_api#delete", "url" => "/api/v2/notebook/{id}", "verb" => "DELETE"],
 
+        //Translations
+        ["name" => "translation#getLanguageStrings", "url" => "/api/v2/language", "verb" => "GET"],
+        //Settings
+        ["name" => "settings#saveAdminSetting", "url" => "/api/v2/settings", "verb" => "POST"],
+        ["name" => "settings#saveUserSetting", "url" => "/api/v2/settings-user", "verb" => "POST"],
+        ["name" => "settings#getSettings", "url" => "/api/v2/settings", "verb" => "GET"],
 
-	// V2 API
-	array('name' => 'note_api#preflighted_cors', 'url' => '/api/v2/{path}', 'verb' => 'OPTIONS', 'requirements' => array('path' => '.+')),
-
-	//Notes
-	array('name' => 'note_api#index', 'url' => '/api/v2/note', 'verb' => 'GET'),
-	array('name' => 'note_api#create', 'url' => '/api/v2/note', 'verb' => 'POST'),
-	array('name' => 'note_api#get', 'url' => '/api/v2/note/{id}', 'verb' => 'GET'),
-	array('name' => 'note_api#update', 'url' => '/api/v2/note/{id}', 'verb' => 'PUT'),
-	array('name' => 'note_api#delete', 'url' => '/api/v2/note/{id}', 'verb' => 'DELETE'),
-
-	//Groups
-	array('name' => 'notebook_api#index', 'url' => '/api/v2/notebook', 'verb' => 'GET'),
-	array('name' => 'notebook_api#create', 'url' => '/api/v2/notebook', 'verb' => 'POST'),
-	array('name' => 'notebook_api#get', 'url' => '/api/v2/notebook/{id}', 'verb' => 'GET'),
-	array('name' => 'notebook_api#update', 'url' => '/api/v2/notebook/{id}', 'verb' => 'PUT'),
-	array('name' => 'notebook_api#delete', 'url' => '/api/v2/notebook/{id}', 'verb' => 'DELETE'),
-
-	//Translations
-	array('name' => 'translation#getLanguageStrings', 'url' => '/api/v2/language', 'verb' => 'GET'),
-	//Settings
-	array('name' => 'settings#saveAdminSetting', 'url' => '/api/v2/settings', 'verb' => 'POST'),
-	array('name' => 'settings#saveUserSetting', 'url' => '/api/v2/settings-user', 'verb' => 'POST'),
-	array('name' => 'settings#getSettings', 'url' => '/api/v2/settings', 'verb' => 'GET'),
-
-	//Sharing
-	array('name' => 'share_api#getshares', 'url' => '/api/v2/sharing/shares', 'verb' => 'GET'),
-	array('name' => 'share_api#share', 'url' => '/api/v2/sharing/shares', 'verb' => 'POST'),
-	array('name' => 'share_api#unshare', 'url' => '/api/v2/sharing/shares/{itemSource}', 'verb' => 'DELETE', 'requirements' => array('itemSource' => '.+')),
-	array('name' => 'share_api#setpermissions', 'url' => '/api/v2/sharing/shares/{itemSource}/permissions', 'verb' => 'PUT', 'requirements' => array('itemSource' => '.+')),
-
-
-
-)));
+        //Sharing
+        ["name" => "share_api#getshares", "url" => "/api/v2/sharing/shares", "verb" => "GET"],
+        ["name" => "share_api#share", "url" => "/api/v2/sharing/shares", "verb" => "POST"],
+        ["name" => "share_api#unshare", "url" => "/api/v2/sharing/shares/{itemSource}", "verb" => "DELETE", "requirements" => ["itemSource" => ".+"]],
+        ["name" => "share_api#setpermissions", "url" => "/api/v2/sharing/shares/{itemSource}/permissions", "verb" => "PUT", "requirements" => ["itemSource" => ".+"]],
+    ]
+];

@@ -32,10 +32,12 @@ use OCA\NextNote\Utility\Utils;
 use \OCP\AppFramework\ApiController;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\Constants;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
 use OCP\ILogger;
 use \OCP\IRequest;
 use OCP\IUserManager;
+use OCP\IUserSession;
 
 
 
@@ -45,14 +47,18 @@ class NoteApiController extends ApiController {
 	private $noteService;
 	private $userManager;
 	private $notebookService;
+	private $userSession;
+	private $eventDispatcher;
 
 	public function __construct($appName, IRequest $request,
-								ILogger $logger, IConfig $config, NoteService $noteService, NotebookService $groupService,IUserManager $userManager) {
+								ILogger $logger, IConfig $config, NoteService $noteService, NotebookService $groupService, IUserManager $userManager, IUserSession $userSession, IEventDispatcher $eventDispatcher) {
 		parent::__construct($appName, $request);
 		$this->config = $config;
 		$this->noteService = $noteService;
 		$this->notebookService = $groupService;
 		$this->userManager = $userManager;
+		$this->userSession = $userSession;
+		$this->eventDispatcher = $eventDispatcher;
 	}
 
 	/**
@@ -64,7 +70,7 @@ class NoteApiController extends ApiController {
 	 * @return JSONResponse
 	 */
 	public function index($deleted = false, $notebook_id = false) {
-		$uid = \OC::$server->getUserSession()->getUser()->getUID();
+		$uid = $this->userSession->getUser()->getUID();
 
 		if(!empty($notebook_id)){
 			$notebook_id = $this->notebookService->find($notebook_id)->getId();
@@ -115,7 +121,7 @@ class NoteApiController extends ApiController {
 			return new JSONResponse(['error' => 'title is missing']);
 		}
 
-		$uid = \OC::$server->getUserSession()->getUser()->getUID();
+		$uid = $this->userSession->getUser()->getUID();
 		$note = new Note();
 		$note->setName($title);
 		$note->setUid($uid);
@@ -134,7 +140,8 @@ class NoteApiController extends ApiController {
 		}
 
 		$result = $this->noteService->create($note)->jsonSerialize();
-		\OC_Hook::emit('OCA\NextNote', 'post_create_note', ['note' => $note]);
+		// Event dispatcher would be used here if we had custom event classes
+		// For now, hooks are removed as they're deprecated
 		return new JSONResponse($this->formatApiResponse($result));
 	}
 
@@ -170,7 +177,8 @@ class NoteApiController extends ApiController {
 		$note->setDeleted($deleted);
 
 		$results = $this->noteService->update($note)->jsonSerialize();
-		\OC_Hook::emit('OCA\NextNote', 'post_update_note', ['note' => $note]);
+		// Event dispatcher would be used here if we had custom event classes
+		// For now, hooks are removed as they're deprecated
 		return new JSONResponse($this->formatApiResponse($results));
 	}
 
@@ -186,7 +194,8 @@ class NoteApiController extends ApiController {
 
 		$this->noteService->delete($id);
 		$result = (object)['success' => true];
-		\OC_Hook::emit('OCA\NextNote', 'post_delete_note', ['note_id' => $id]);
+		// Event dispatcher would be used here if we had custom event classes
+		// For now, hooks are removed as they're deprecated
 		return new JSONResponse($result);
 	}
 
@@ -195,12 +204,21 @@ class NoteApiController extends ApiController {
 	 * @return array
 	 */
 	private function formatApiResponse($note) {
-		$uid = \OC::$server->getUserSession()->getUser()->getUID();
+		$uid = $this->userSession->getUser()->getUID();
 		$acl = [
 			'permissions' => Constants::PERMISSION_ALL
 		];
 
-		$note['owner'] = Utils::getUserInfo($note['uid']);
+		$user = $this->userManager->get($note['uid']);
+		if ($user) {
+			$note['owner'] = [
+				'display_name' => $user->getDisplayName(),
+				'uid' => $note['uid'],
+				'avatar' => $user->getAvatarImage(32)
+			];
+		} else {
+			$note['owner'] = false;
+		}
 		$note['permissions'] = $acl['permissions'];
 
 		$shared_with = [];

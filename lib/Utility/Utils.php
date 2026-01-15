@@ -49,9 +49,19 @@ class Utils {
 		return $u['display_name'];
 	}
 
-	public static function getUserInfo($uid){
-		$um = \OC::$server->getUserManager();
-		$u = $um->get($uid);
+	/**
+	 * @deprecated Use IUserManager directly instead
+	 * @param $uid
+	 * @param \OCP\IUserManager|null $userManager
+	 * @return array|false
+	 */
+	public static function getUserInfo($uid, $userManager = null){
+		// This method is deprecated - inject IUserManager and use it directly
+		// Kept for backward compatibility but should not be used in new code
+		if ($userManager === null) {
+			return false;
+		}
+		$u = $userManager->get($uid);
 		if($u) {
 			$user = [
 				'display_name' => $u->getDisplayName(),

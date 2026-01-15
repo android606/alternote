@@ -72,7 +72,7 @@ style('nextnote', 'vendor/font-awesome/font-awesome.min');
 /*build-css-end*/
 echo '<script nonce="test"> var shareMode = "'. $_['shareMode'] .'"; var app_config = '. json_encode($_['config']) .'</script>';
 ?>
-<input type="hidden" name="nextNonce" id="nextNonce" value="<?php p(\OC::$server->getContentSecurityPolicyNonceManager()->getNonce()) ?>" />
+<input type="hidden" name="nextNonce" id="nextNonce" value="<?php p($_['nonce']) ?>" />
 <div id="app" ng-app="NextNotesApp" ng-controller="MainCtrl">
 	<div id="app-navigation" ng-show="sidebar_shown">
 		<ul id="grouplist">

@@ -29,6 +29,7 @@ use OCA\NextNote\Db\Note;
 use OCA\NextNote\Service\NotebookService;
 use OCA\NextNote\Service\NoteService;
 use OCA\NextNote\Utility\Utils;
+use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\ILogger;
 use OCP\Migration\IOutput;
@@ -48,12 +49,15 @@ class MigrateGroups implements IRepairStep {
 	private $logger;
 	private $groupService;
 	private $noteService;
+	/** @var IConfig */
+	private $config;
 
 
-	public function __construct(IDBConnection $db, ILogger $logger, NotebookService $groupService, NoteService $noteService) {
+	public function __construct(IDBConnection $db, ILogger $logger, NotebookService $groupService, NoteService $noteService, IConfig $config) {
 		$this->db = $db;
 		$this->logger = $logger;
-		$this->installedVersion = \OC::$server->getConfig()->getAppValue('nextnote', 'installed_version');
+		$this->config = $config;
+		$this->installedVersion = $this->config->getAppValue('nextnote', 'installed_version');
 		$this->groupService = $groupService;
 		$this->noteService = $noteService;
 	}

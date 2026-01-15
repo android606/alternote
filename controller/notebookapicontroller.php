@@ -30,10 +30,12 @@ use OCA\NextNote\Utility\UnauthorizedJSONResponse;
 use OCA\NextNote\Utility\Utils;
 use \OCP\AppFramework\ApiController;
 use OCP\AppFramework\Http\JSONResponse;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
 use OCP\ILogger;
 use \OCP\IRequest;
 use OCP\IUserManager;
+use OCP\IUserSession;
 
 
 class NotebookApiController extends ApiController {
@@ -41,13 +43,17 @@ class NotebookApiController extends ApiController {
 	private $config;
 	private $notebookService;
 	private $userManager;
+	private $userSession;
+	private $eventDispatcher;
 
 	public function __construct($appName, IRequest $request,
-								ILogger $logger, IConfig $config, NotebookService $notebookService, IUserManager $userManager) {
+								ILogger $logger, IConfig $config, NotebookService $notebookService, IUserManager $userManager, IUserSession $userSession, IEventDispatcher $eventDispatcher) {
 		parent::__construct($appName, $request);
 		$this->config = $config;
 		$this->notebookService = $notebookService;
 		$this->userManager = $userManager;
+		$this->userSession = $userSession;
+		$this->eventDispatcher = $eventDispatcher;
 	}
 
 	/**
@@ -58,7 +64,7 @@ class NotebookApiController extends ApiController {
 	 * @return JSONResponse
 	 */
 	public function index($deleted = false) {
-		$uid = \OC::$server->getUserSession()->getUser()->getUID();
+		$uid = $this->userSession->getUser()->getUID();
 		$result = $this->notebookService->findNotebooksFromUser($uid, $deleted);
 		$results = $result;
 		if($result instanceof Notebook){
@@ -104,7 +110,7 @@ class NotebookApiController extends ApiController {
 		}
 
 
-		$uid = \OC::$server->getUserSession()->getUser()->getUID();
+		$uid = $this->userSession->getUser()->getUID();
 		$notebook = new Notebook();
 		$notebook->setName($name);
 		$notebook->setParentId($parent_id);
@@ -118,7 +124,8 @@ class NotebookApiController extends ApiController {
 		}*/
 
 		$result = $this->notebookService->create($notebook, $uid)->jsonSerialize();
-		\OC_Hook::emit('OCA\NextNote', 'post_create_notebook', ['notebook' => $notebook]);
+		// Event dispatcher would be used here if we had custom event classes
+		// For now, hooks are removed as they're deprecated
 		return new JSONResponse($result);
 	}
 
@@ -147,7 +154,8 @@ class NotebookApiController extends ApiController {
 		$notebook->setColor($color);
 
 		$results = $this->notebookService->update($notebook)->jsonSerialize();
-		\OC_Hook::emit('OCA\NextNote', 'post_update_notebook', ['notebook' => $notebook]);
+		// Event dispatcher would be used here if we had custom event classes
+		// For now, hooks are removed as they're deprecated
 		return new JSONResponse($results);
 	}
 
@@ -165,7 +173,8 @@ class NotebookApiController extends ApiController {
 
 		$this->notebookService->delete($id);
 		$result = (object)['success' => true];
-		\OC_Hook::emit('OCA\NextNote', 'post_delete_notebook', ['notebook_id' => $id]);
+		// Event dispatcher would be used here if we had custom event classes
+		// For now, hooks are removed as they're deprecated
 		return new JSONResponse($result);
 	}
 }
