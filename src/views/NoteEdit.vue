@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { noteService } from '../services/noteService'
 import { notebookService } from '../services/notebookService'
@@ -185,10 +185,17 @@ export default {
 			}
 
 			autoSaveTimer.value = setTimeout(() => {
-				if (route.params.id) {
+				const noteId = route.params.id || props.id
+				if (noteId && noteId !== 'new') {
 					saveNote()
 				}
 			}, 10000)
+		})
+
+		onBeforeUnmount(() => {
+			if (autoSaveTimer.value) {
+				clearTimeout(autoSaveTimer.value)
+			}
 		})
 
 		onMounted(() => {
