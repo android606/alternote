@@ -1,23 +1,16 @@
-# NextNote (alpha)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/brantje/nextnote/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/brantje/nextnote/?branch=master)   
-This application is a rewritten verion of [ownNote](https://github.com/Fmstrat/ownnote).<br>
-The old [Android App](https://play.google.com/store/apps/details?id=com.nowsci.ownnote&hl=sv) won't work, but no worries, we plan to develop a new one.
+# Alternote (alpha)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/brantje/nextnote/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/brantje/nextnote/?branch=master)
+
+This application is a fork of [NextNote](https://github.com/brantje/nextnote),<br>
+which is a rewritten version of [ownNote](https://github.com/Fmstrat/ownnote).<br>
 
 ![alpha-release](https://user-images.githubusercontent.com/1787238/38750516-0adbd372-3f0a-11e8-9120-6521cf3232a5.gif)<br>
-Alpha means in this case 'pretty stable', but it's possible that due to an update things will break / get sent to `/dev/null`.<br>
 **If you value your notes please wait for a stable version.**
-    
+
 Changes:
-- Replaced deprecated methods
-- Removed XSS vulnerability (Via the announcements it was possible to inject javascript / html)
-- Updated [tiny MCE](https://github.com/tinymce/tinymce) to  4.7.10.
-- Fixed CSP error in [tinymce](https://github.com/tinymce/tinymce).
-- Ability to embed files from your nextcloud 
-- Ability to link to files from your nextcloud
-- Make use of Entity's, mappers, services
+- Forked from brantje/nextnote
 
 ## Pull requests are very welcome!
-The whole app has been rebuild, so there will be some bugs in there.   
 Did you find a bug? Report it or fix it and send a PR.
 
 ## Screenshots
@@ -25,7 +18,7 @@ Did you find a bug? Report it or fix it and send a PR.
 
 ![recipe-example](https://user-images.githubusercontent.com/1787238/38751463-0fb851c4-3f0d-11e8-867e-0db143f730e1.png)
 
-![nexnote-drag-and-drop-example-bigger](https://user-images.githubusercontent.com/1787238/38581663-58ecc3b8-3cc2-11e8-9011-970ace95a5f5.gif)
+![nextnote-drag-and-drop-example-bigger](https://user-images.githubusercontent.com/1787238/38581663-58ecc3b8-3cc2-11e8-9011-970ace95a5f5.gif)
 
 ## Features
 - Full fledged [WYSIWYG editor](https://github.com/tinymce/tinymce)
@@ -33,14 +26,14 @@ Did you find a bug? Report it or fix it and send a PR.
 - Note grouping/categorization
 - Archive notes
 
-
 ## Todo:
+- [ ] Modernize code: It's currently targeted for Nextcloud 14. Need to bring it up to NC 32.
+- [X] Rename namespace from NextNotes to Alternote
 - [x] Refactor backend to make use of:
   - [x] Entity's
   - [x] Mappers
   - [x] Services
 - [x] Switch to a AngularJS frontend
-- [X] Rename namespace from OwnNotes to NextNotes
 - [ ] Implement [note sharing](https://github.com/brantje/nextnote/issues/81)
 - [ ] Import from Evernote as HTML or [ENEX](https://github.com/brantje/nextnote/issues/75)
 - [ ] Ability to [save files to a folder as HTML files](https://github.com/brantje/nextnote/issues/96) (untested)
@@ -52,9 +45,6 @@ Did you find a bug? Report it or fix it and send a PR.
 - [ ] Encrypted notes? (What about sharing?)
 - [ ] Travis tests (We really need help with this, so PR's welcome!) 
 - [ ] Develop an app for Android/iOS (We really need help with this, so PR's welcome!)
-   
-## Chat
-There is a [Telegram](https://t.me/NextNote) chatroom available.
    
 ## Installation
 - Place this app in **nextcloud/apps/nextnote** (Rename the extracted ZIP to "nextnote" or you will receive errors)
@@ -135,7 +125,7 @@ Simply just run it everytime you want to get the latest master code.
 
 ## Development
 
-NextNotes uses a single `.js` file for the templates.   
+Alternote uses a single `.js` file for the templates.   
 This gives the benefit that we don't need to request every template with XHR.
 For CSS we use SASS so you need ruby and sass installed.
 `templates.js` and the CSS are built with grunt, so don't edit them as your changes will be overwritten next time grunt is ran.   
