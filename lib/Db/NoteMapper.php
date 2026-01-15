@@ -34,7 +34,7 @@ class NoteMapper extends Mapper {
 	private $notebookService;
 
 	public function __construct(IDBConnection $db, Utils $utils, NotebookService $notebookService) {
-		parent::__construct($db, 'nextnote_notes');
+		parent::__construct($db, 'alternote_notes');
 		$this->utils = $utils;
 		$this->notebookService = $notebookService;
 	}
@@ -49,7 +49,7 @@ class NoteMapper extends Mapper {
 	public function find($note_id, $user_id = null, $deleted = false) {
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
-			->from('nextnote_notes')
+			->from('alternote_notes')
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($note_id)));
 
 		if ($user_id) {
@@ -93,7 +93,7 @@ class NoteMapper extends Mapper {
 	public function findNotesFromUser($userId, $deleted = 0, $group = false) {
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
-			->from('nextnote_notes')
+			->from('alternote_notes')
 			->where($qb->expr()->eq('uid', $qb->createNamedParameter($userId)));
 
 		if ($group) {
@@ -189,7 +189,7 @@ class NoteMapper extends Mapper {
 	 */
 	public function createNotePart(Note $note, $content) {
 		$qb = $this->db->getQueryBuilder();
-		$qb->insert('nextnote_parts')
+		$qb->insert('alternote_parts')
 			->values([
 				'id' => $qb->createNamedParameter($note->getId()),
 				'note' => $qb->createNamedParameter($content),
@@ -204,7 +204,7 @@ class NoteMapper extends Mapper {
 	 */
 	public function deleteNoteParts(Note $note) {
 		$qb = $this->db->getQueryBuilder();
-		$qb->delete('nextnote_parts')
+		$qb->delete('alternote_parts')
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($note->getId())));
 		$qb->execute();
 	}
@@ -218,7 +218,7 @@ class NoteMapper extends Mapper {
 	public function getNoteParts(Note $note) {
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
-			->from('nextnote_parts')
+			->from('alternote_parts')
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($note->getId())));
 		$result = $qb->execute();
 		$results = $result->fetchAll();

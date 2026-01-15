@@ -33,7 +33,7 @@ class NotebookMapper extends Mapper {
 	private $utils;
 
 	public function __construct(IDBConnection $db, Utils $utils) {
-		parent::__construct($db, 'nextnote_groups');
+		parent::__construct($db, 'alternote_groups');
 		$this->utils = $utils;
 	}
 
@@ -49,8 +49,8 @@ class NotebookMapper extends Mapper {
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('g.*', 'g.guid as guid')//'COUNT(n.id) as note_count'
 		->selectAlias($qb->createFunction('COUNT(' . $qb->getColumnName('n.id') . ')'), 'note_count')
-			->from('nextnote_groups', 'g')
-			->leftJoin('g', 'nextnote_notes', 'n', $qb->expr()->eq('g.id', 'n.notebook'))->groupBy(['g.id']);
+			->from('alternote_groups', 'g')
+			->leftJoin('g', 'alternote_notes', 'n', $qb->expr()->eq('g.id', 'n.notebook'))->groupBy(['g.id']);
 
 		$where = [];
 		if (!is_null($notebook_id)) {
@@ -99,8 +99,8 @@ class NotebookMapper extends Mapper {
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('g.*', 'g.guid as guid')//'COUNT(n.id) as note_count'
 		->selectAlias($qb->createFunction('COUNT(' . $qb->getColumnName('n.id') . ')'), 'note_count')
-			->from('nextnote_groups', 'g')
-			->leftJoin('g', 'nextnote_notes', 'n', $qb->expr()->eq('g.id', 'n.notebook'))->groupBy(['g.id']);
+			->from('alternote_groups', 'g')
+			->leftJoin('g', 'alternote_notes', 'n', $qb->expr()->eq('g.id', 'n.notebook'))->groupBy(['g.id']);
 
 		$where = [];
 		if ($group_name) {
