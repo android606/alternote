@@ -20,7 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-namespace OCA\NextNote\AppInfo;
+namespace OCA\Alternote\AppInfo;
 
 use OCP\AppFramework\App;
 
