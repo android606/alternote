@@ -23,4 +23,10 @@
 
 namespace OCA\Alternote\AppInfo;
 
+use Composer\Autoload\ClassLoader;
+
+$loader = new ClassLoader();
+$loader->addPsr4('OCA\\Alternote\\', __DIR__ . '/../../');
+$loader->register();
+
 
