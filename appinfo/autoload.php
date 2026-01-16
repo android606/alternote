@@ -26,7 +26,7 @@ namespace OCA\Alternote\AppInfo;
 spl_autoload_register(function ($class) {
 	if (strpos($class, 'OCA\\Alternote\\') === 0) {
 		$class = str_replace('OCA\\Alternote\\', '', $class);
-		$file = __DIR__ . '/../../' . str_replace('\\', '/', $class) . '.php';
+		$file = __DIR__ . '/../../' . strtolower(str_replace('\\', '/', $class)) . '.php';
 		if (file_exists($file)) {
 			require_once $file;
 		}
