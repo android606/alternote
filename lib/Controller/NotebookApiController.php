@@ -32,7 +32,6 @@ use \OCP\AppFramework\ApiController;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
-use OCP\ILogger;
 use \OCP\IRequest;
 use OCP\IUserManager;
 use OCP\IUserSession;
@@ -47,7 +46,7 @@ class NotebookApiController extends ApiController {
 	private $eventDispatcher;
 
 	public function __construct($appName, IRequest $request,
-								ILogger $logger, IConfig $config, NotebookService $notebookService, IUserManager $userManager, IUserSession $userSession, IEventDispatcher $eventDispatcher) {
+								IConfig $config, NotebookService $notebookService, IUserManager $userManager, IUserSession $userSession, IEventDispatcher $eventDispatcher) {
 		parent::__construct($appName, $request);
 		$this->config = $config;
 		$this->notebookService = $notebookService;

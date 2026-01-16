@@ -26,10 +26,10 @@ namespace OCA\Alternote\Db;
 use \OCA\Alternote\Utility\Utils;
 use OCP\AppFramework\Db\Entity;
 use OCP\IDBConnection;
-use OCP\AppFramework\Db\Mapper;
+use OCP\AppFramework\Db\QBMapper;
 
 
-class NotebookMapper extends Mapper {
+class NotebookMapper extends QBMapper {
 	private $utils;
 
 	public function __construct(IDBConnection $db, Utils $utils) {
@@ -147,9 +147,9 @@ class NotebookMapper extends Mapper {
 	 * @return Note|Entity
 	 * @internal param $userId
 	 */
-	public function insert(Entity $group) {
-		$group->setNoteCount(null);
-		return parent::insert($group);
+	public function insert(Entity $entity): Entity {
+		$entity->setNoteCount(null);
+		return parent::insert($entity);
 	}
 
 	/**
@@ -158,8 +158,8 @@ class NotebookMapper extends Mapper {
 	 * @param Notebook|Entity $group
 	 * @return Notebook|Entity
 	 */
-	public function update(Entity $group) {
-		return parent::update($group);
+	public function update(Entity $entity): Entity {
+		return parent::update($entity);
 	}
 
 	/**
@@ -168,8 +168,8 @@ class NotebookMapper extends Mapper {
 	 * @param Notebook|Entity $group
 	 * @return Notebook|Entity
 	 */
-	public function delete(Entity $group) {
-		return parent::delete($group);
+	public function delete(Entity $entity): Entity {
+		return parent::delete($entity);
 	}
 
 	/**

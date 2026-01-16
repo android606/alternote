@@ -27,9 +27,9 @@ use OCA\Alternote\Service\NotebookService;
 use \OCA\Alternote\Utility\Utils;
 use OCP\AppFramework\Db\Entity;
 use OCP\IDBConnection;
-use OCP\AppFramework\Db\Mapper;
+use OCP\AppFramework\Db\QBMapper;
 
-class NoteMapper extends Mapper {
+class NoteMapper extends QBMapper {
 	private $utils;
 	private $notebookService;
 
@@ -131,15 +131,15 @@ class NoteMapper extends Mapper {
 	 * @return Note|Entity
 	 * @internal param $userId
 	 */
-	public function insert(Entity $note) {
-		$len = mb_strlen($note->getNote());
+	public function insert(Entity $entity): Entity {
+		$len = mb_strlen($entity->getNote());
 		$parts = false;
 		if ($len > Utils::$maxPartSize) {
-			$parts = $this->utils->splitContent($note->getNote());
-			$note->setNote('');
+			$parts = $this->utils->splitContent($entity->getNote());
+			$entity->setNote('');
 		}
 
-		$note = parent::insert($note);
+		$note = parent::insert($entity);
 		/**
 		 * @var $note Note
 		 */
@@ -147,7 +147,7 @@ class NoteMapper extends Mapper {
 			foreach ($parts as $part) {
 				$this->createNotePart($note, $part);
 			}
-			$note->setNote(implode('', $parts));
+			$entity->setNote(implode('', $parts));
 		}
 
 
@@ -247,7 +247,7 @@ class NoteMapper extends Mapper {
 		$note->setId($arr['id']);
 		$note->setName($arr['name']);
 		$note->setGuid($arr['guid']);
-		$note->setGrouping($arr['grouping']);
+		$note->setGrouping($arr['grouping'] ?? '');
 		if ($arr['notebook']) {
 			$notebook = $this->notebookService->find($arr['notebook']);
 			$note->setNotebook($notebook);

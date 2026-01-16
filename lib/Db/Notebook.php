@@ -62,7 +62,7 @@ class Notebook extends Entity implements \JsonSerializable {
 		$this->addType('note_count', 'integer');
 	}
 
-	protected function setter($name, $args) {
+	protected function setter(string $name, array $args): void {
 		if($name != 'noteCount') {
 			parent::setter($name, $args);
 		} else {

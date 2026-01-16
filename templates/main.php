@@ -8,12 +8,11 @@
 
 \OCP\Util::addStyle('core', 'icons');
 \OCP\Util::addStyle('files_trashbin', 'trash');
-\OCP\Util::addScript('alternote', 'js/main');
+\OCP\Util::addScript('alternote', 'main');
 \OCP\Util::addStyle('alternote', 'css/main');
 ?>
-<input type="hidden" name="nextNonce" id="nextNonce" value="<?php p($_['nonce']) ?>" />
 <div id="alternote-app"></div>
-<script nonce="<?php p($_['nonce']) ?>">
+<script>
 	window.shareMode = <?php p($_['shareMode']) ?>;
 	window.app_config = <?php print_unescaped(json_encode($_['config'])) ?>;
 </script>

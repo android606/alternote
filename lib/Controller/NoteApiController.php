@@ -34,7 +34,6 @@ use OCP\AppFramework\Http\JSONResponse;
 use OCP\Constants;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
-use OCP\ILogger;
 use \OCP\IRequest;
 use OCP\IUserManager;
 use OCP\IUserSession;
@@ -51,7 +50,7 @@ class NoteApiController extends ApiController {
 	private $eventDispatcher;
 
 	public function __construct($appName, IRequest $request,
-								ILogger $logger, IConfig $config, NoteService $noteService, NotebookService $groupService, IUserManager $userManager, IUserSession $userSession, IEventDispatcher $eventDispatcher) {
+								IConfig $config, NoteService $noteService, NotebookService $groupService, IUserManager $userManager, IUserSession $userSession, IEventDispatcher $eventDispatcher) {
 		parent::__construct($appName, $request);
 		$this->config = $config;
 		$this->noteService = $noteService;
