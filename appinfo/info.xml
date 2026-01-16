@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-    <id>nextnote</id>
-    <name>NextNote</name>
-    <summary>NextNote</summary>
-    <description>NextNote</description>
+    <id>alternote</id>
+    <name>Alternote</name>
+    <summary>Alternote</summary>
+    <description>Alternote - A modern note-taking app for Nextcloud</description>
     <version>2.0.0</version>
     <licence>agpl</licence>
     <author>Ben Curtis</author>
@@ -32,11 +32,11 @@
     </settings>
     <navigations>
         <navigation>
-            <id>nextnote</id>
+            <id>alternote</id>
             <name>Notes</name>
             <order>10</order>
             <icon>app.svg</icon>
-            <route>nextnote.page.index</route>
+            <route>alternote.page.index</route>
         </navigation>
     </navigations>
 </info>
