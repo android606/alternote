@@ -65,14 +65,14 @@ class AdminSettings implements ISettings {
 
 		$params = $this->settingsService->getSettings();
 
-		return new TemplateResponse('nextnote', 'admin', $params);
+		return new TemplateResponse('alternote', 'admin', $params);
 	}
 
 	/**
 	 * @return string the section ID, e.g. 'sharing'
 	 */
 	public function getSection() {
-		return 'nextnote';
+		return 'alternote';
 	}
 
 	/**

@@ -44,7 +44,7 @@ class PersonalSection implements IIconSection {
 	 * @since 13.0.0
 	 */
 	public function getIcon() {
-		return $this->urlGenerator->imagePath('nextnote', 'app-icon.svg');
+		return $this->urlGenerator->imagePath('alternote', 'app-icon.svg');
 	}
 	/**
 	 * returns the ID of the section. It is supposed to be a lower case string,
@@ -54,7 +54,7 @@ class PersonalSection implements IIconSection {
 	 * @since 9.1
 	 */
 	public function getID() {
-		return 'nextnote';
+		return 'alternote';
 	}
 	/**
 	 * returns the translated name as it should be displayed, e.g. 'LDAP / AD

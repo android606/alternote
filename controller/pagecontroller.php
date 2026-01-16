@@ -76,7 +76,7 @@ class PageController extends Controller {
 			$this->config->setUserSetting('first_user', '0');
 		}
 
-		$response = new TemplateResponse('nextnote', 'main', $params);
+		$response = new TemplateResponse('alternote', 'main', $params);
 		$ocVersion = \OCP\Util::getVersion();
 		if ($ocVersion[0] > 8 || ($ocVersion[0] == 8 && $ocVersion[1] >= 1)) {
 			$csp = new \OCP\AppFramework\Http\ContentSecurityPolicy();

@@ -62,14 +62,14 @@ class PersonalSettings implements ISettings {
 	 */
 	public function getForm() {
 		$params = ['config' => $this->settingsService->getSettings()];
-		return new TemplateResponse('nextnote', 'settings-personal', $params, '');
+		return new TemplateResponse('alternote', 'settings-personal', $params, '');
 	}
 	/**
 	 * @return string the section ID, e.g. 'sharing'
 	 * @since 9.1
 	 */
 	public function getSection() {
-		return 'nextnote';
+		return 'alternote';
 	}
 	/**
 	 * @return int whether the form should be rather on the top or bottom of

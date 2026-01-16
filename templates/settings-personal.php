@@ -1,7 +1,7 @@
 <?php
-\OCP\Util::addScript('nextnote', 'user');
+\OCP\Util::addScript('alternote', 'user');
 
-$l = OCP\Util::getL10N('nextnote');
+$l = OCP\Util::getL10N('alternote');
 ?>
 <div id="nextNoteSettings" class="section">
 	<h2 data-anchor-name="nextnote">NextNote Settings</h2>

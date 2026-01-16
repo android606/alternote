@@ -47,7 +47,7 @@ class AdminSection implements IIconSection {
 	 * @returns string
 	 */
 	public function getID() {
-		return 'nextnote';
+		return 'alternote';
 	}
 
 	/**
@@ -75,6 +75,6 @@ class AdminSection implements IIconSection {
 	 * {@inheritdoc}
 	 */
 	public function getIcon() {
-		return $this->url->imagePath('nextnote', 'app-icon.svg');
+		return $this->url->imagePath('alternote', 'app-icon.svg');
 	}
 }

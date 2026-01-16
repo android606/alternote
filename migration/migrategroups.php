@@ -57,7 +57,7 @@ class MigrateGroups implements IRepairStep {
 		$this->db = $db;
 		$this->logger = $logger;
 		$this->config = $config;
-		$this->installedVersion = $this->config->getAppValue('nextnote', 'installed_version');
+		$this->installedVersion = $this->config->getAppValue('alternote', 'installed_version');
 		$this->groupService = $groupService;
 		$this->noteService = $noteService;
 	}

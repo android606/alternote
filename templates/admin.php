@@ -21,11 +21,11 @@
  *
  */
 
-\OCP\Util::addScript('nextnote', 'admin');
+\OCP\Util::addScript('alternote', 'admin');
 
 $folder = $_['folder'];
 $sharemode = $_['app']['sharemode'];
-$l = OCP\Util::getL10N('nextnote');
+$l = OCP\Util::getL10N('alternote');
 
 ?>
 

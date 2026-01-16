@@ -45,13 +45,13 @@ class SettingsService {
 		$this->config = $config;
 		$this->appName = $AppName;
 		$this->settings = array(
-			'folder' => $this->config->getAppValue('nextnote', 'folder', ''),
-			'sharemode' => $this->config->getAppValue('nextnote', 'sharemode', 'merge'),
+			'folder' => $this->config->getAppValue('alternote', 'folder', ''),
+			'sharemode' => $this->config->getAppValue('alternote', 'sharemode', 'merge'),
 
 		);
 		$this->userSettings = array(
-			'view_mode' => $this->config->getUserValue($this->userId, 'nextnote', 'view_mode', 'col'), // single|col
-			'first_user' => $this->config->getUserValue($this->userId, 'nextnote', 'first_user', 1),
+			'view_mode' => $this->config->getUserValue($this->userId, 'alternote', 'view_mode', 'col'), // single|col
+			'first_user' => $this->config->getUserValue($this->userId, 'alternote', 'first_user', 1),
 		);
 	}
 
@@ -95,7 +95,7 @@ class SettingsService {
 	 * @return string|int
 	 */
 	public function getUserSetting($key, $default = '') {
-		return $this->config->getUserValue($this->userId, 'nextnote', $key, $default); // single|col
+		return $this->config->getUserValue($this->userId, 'alternote', $key, $default); // single|col
 	}
 
 	/**
@@ -106,7 +106,7 @@ class SettingsService {
 	 * @return mixed
 	 */
 	public function getAppSetting($key, $default_value = null) {
-		$value = ($this->settings[$key]) ? $this->settings[$key] : $this->config->getAppValue('nextnote', $key, $default_value);
+		$value = ($this->settings[$key]) ? $this->settings[$key] : $this->config->getAppValue('alternote', $key, $default_value);
 		if (in_array($key, $this->numeric_settings)) {
 			$value = intval($value);
 		}
@@ -122,7 +122,7 @@ class SettingsService {
 	 */
 	public function setAppSetting($key, $value) {
 		$this->settings[$key] = $value;
-		$this->config->setAppValue('nextnote', $key, $value);
+		$this->config->setAppValue('alternote', $key, $value);
 	}
 
 	/**
@@ -134,7 +134,7 @@ class SettingsService {
 
 	public function setUserSetting($key, $value) {
 		$this->userSettings[$key] = $value;
-		return $this->config->setUserValue($this->userId, 'nextnote', $key, $value);
+		return $this->config->setUserValue($this->userId, 'alternote', $key, $value);
 	}
 
 	/**
