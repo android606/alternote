@@ -21,7 +21,7 @@
  *
  */
 
-namespace OCA\Alternote\Service;
+namespace OCA\NextNote\Service;
 
 use OCP\IConfig;
 

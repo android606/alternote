@@ -22,7 +22,7 @@
  */
 
 
-namespace OCA\Alternote\Settings;
+namespace OCA\NextNote\Settings;
 
 
 use OCP\IL10N;
@@ -57,7 +57,7 @@ class AdminSection implements IIconSection {
 	 * @return string
 	 */
 	public function getName() {
-		return $this->l->t('Nextnote');
+		return $this->l->t('Alternote');
 	}
 
 	/**

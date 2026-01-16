@@ -20,7 +20,7 @@
  *
  */
 
-namespace OCA\Alternote\Settings;
+namespace OCA\NextNote\Settings;
 
 
 use OCP\IL10N;
@@ -64,7 +64,7 @@ class PersonalSection implements IIconSection {
 	 * @since 9.1
 	 */
 	public function getName() {
-		return $this->l->t('NextNote');
+		return $this->l->t('Alternote');
 	}
 	/**
 	 * @return int whether the form should be rather on the top or bottom of
