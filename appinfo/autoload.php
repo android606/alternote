@@ -23,10 +23,14 @@
 
 namespace OCA\Alternote\AppInfo;
 
-use Composer\Autoload\ClassLoader;
-
-$loader = new ClassLoader();
-$loader->addPsr4('OCA\\Alternote\\', __DIR__ . '/../../');
-$loader->register();
+spl_autoload_register(function ($class) {
+	if (strpos($class, 'OCA\\Alternote\\') === 0) {
+		$class = str_replace('OCA\\Alternote\\', '', $class);
+		$file = __DIR__ . '/../../' . str_replace('\\', '/', $class) . '.php';
+		if (file_exists($file)) {
+			require_once $file;
+		}
+	}
+});
 
 
