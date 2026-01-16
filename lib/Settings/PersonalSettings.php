@@ -22,10 +22,10 @@
  */
 
 
-namespace OCA\NextNote\Settings;
+namespace OCA\Alternote\Settings;
 
 
-use OCA\NextNote\Service\SettingsService;
+use OCA\Alternote\Service\SettingsService;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IL10N;
 use OCP\IURLGenerator;
