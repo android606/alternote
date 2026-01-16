@@ -9,7 +9,7 @@
 \OCP\Util::addStyle('core', 'icons');
 \OCP\Util::addStyle('files_trashbin', 'trash');
 \OCP\Util::addScript('alternote', 'main');
-\OCP\Util::addStyle('alternote', 'css/main');
+\OCP\Util::addStyle('alternote', 'main');
 ?>
 <div id="alternote-app"></div>
 <script>

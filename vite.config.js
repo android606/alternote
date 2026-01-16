@@ -13,6 +13,8 @@ export default defineConfig({
 				main: resolve(__dirname, 'src/main.js')
 			},
 			output: {
+				format: 'iife',
+				name: 'AlternoteApp',
 				entryFileNames: 'js/main.js',
 				chunkFileNames: 'js/[name]-[hash].js',
 				assetFileNames: (assetInfo) => {

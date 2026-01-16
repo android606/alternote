@@ -10,3 +10,5 @@ dist
 node_modules
 dist
 package-lock.json
+js/vendor/tinymce-new/
+*.bak

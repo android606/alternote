@@ -1,22 +1,14 @@
 <template>
-	<editor
-		:init="editorConfig"
-		:disabled="disabled"
-		v-model="content"
-		@update:modelValue="handleUpdate"
-	/>
+	<div :id="editorId" :style="{ height: editorHeight + 'px', width: '100%' }"></div>
 </template>
 
 <script>
-import Editor from '@tinymce/tinymce-vue'
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
-import { generateUrl } from '@nextcloud/router'
+import Quill from 'quill'
+import 'quill/dist/quill.snow.css'
 
 export default {
-	name: 'TinyMCEEditor',
-	components: {
-		editor: Editor
-	},
+	name: 'QuillEditor',
 	props: {
 		modelValue: {
 			type: String,
@@ -34,117 +26,154 @@ export default {
 	emits: ['update:modelValue'],
 	setup(props, { emit }) {
 		const content = ref(props.modelValue)
-
-		const langMapper = {
-			'bg': 'bg_BG',
-			'cs': 'cs_CZ',
-			'fi': 'fi_FI',
-			'hu': 'hu_HU',
-			'nb': 'nb_NO',
-			'sk': 'sk_SK',
-			'th': 'th_TH',
-			'ja': 'ja_JP',
-			'sv': 'sv_SE',
-		}
-
-		let locale = 'en'
-		if (typeof OC !== 'undefined' && OC.getLocale) {
-			locale = OC.getLocale().replace('-', '_')
-		}
-		if (langMapper.hasOwnProperty(locale)) {
-			locale = langMapper[locale]
-		}
-
 		const editorHeight = ref(props.height)
+		const editorId = ref('quill-editor-' + Math.random().toString(36).substr(2, 9))
+		let quillInstance = null
 
 		const editorConfig = {
-			menubar: false,
-			language: locale,
-			plugins: [
-				'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-				'anchor', 'pagebreak', 'searchreplace', 'wordcount', 'visualblocks',
-				'visualchars', 'code', 'fullscreen', 'insertdatetime', 'media',
-				'nonbreaking', 'save', 'table', 'contextmenu', 'directionality',
-				'emoticons', 'template', 'paste', 'textcolor', 'colorpicker',
-				'textpattern', 'imagetools', 'codesample', 'toc', 'help'
-			],
-			toolbar: 'print fullscreen | undo redo | formatselect fontselect fontsizeselect | ' +
-				'bold italic strikethrough subscript superscript | emoticons | ' +
-				'forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
-				'bullist numlist table outdent indent | link image | ' +
-				'insertdatetime toc | codesample help | code',
-			image_advtab: true,
-			allow_html_data_urls: true,
-			allow_script_urls: true,
-			paste_data_images: true,
-			width: '100%',
-			height: editorHeight.value,
-			browser_spellcheck: true,
-			autoresize_min_height: editorHeight.value - 140,
-			autoresize_max_height: editorHeight.value - 140,
-			file_picker_types: 'file image media',
-			file_picker_callback: (callback, value, meta) => {
-				if (typeof OC === 'undefined' || !OC.dialogs || !OC.dialogs.filepicker) {
-					console.warn('OC.dialogs.filepicker not available')
-					return
-				}
-				if (meta.filetype === 'file') {
-					OC.dialogs.filepicker('Pick a file', (file) => {
-						const filePath = OC.linkToRemote('webdav') + file
-						callback(filePath, { text: file })
-					})
-				} else if (meta.filetype === 'image') {
-					OC.dialogs.filepicker('Pick an image', (file) => {
-						const allowedExtensions = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webm']
-						const extension = file.split('.').pop()
-						if (allowedExtensions.indexOf(extension) < 0) {
-							if (OC.Notification && OC.Notification.showTemporary) {
-								OC.Notification.showTemporary('File extension not allowed')
-							}
-							return
-						}
-						const filePath = OC.linkToRemote('webdav') + file
-						callback(filePath, { alt: file })
-					})
-				}
+			theme: 'snow',
+			modules: {
+				toolbar: [
+					[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+					['bold', 'italic', 'underline', 'strike'],
+					[{ 'script': 'sub'}, { 'script': 'super' }],
+					[{ 'color': [] }, { 'background': [] }],
+					[{ 'align': [] }],
+					['blockquote', 'code-block'],
+					[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+					['link', 'image'],
+					['clean']
+				]
 			},
-			contextmenu: 'print link image inserttable | cell row column deletetable',
-			textpattern_patterns: [
-				{ start: '*', end: '*', format: 'italic' },
-				{ start: '**', end: '**', format: 'bold' },
-				{ start: '#', format: 'h1' },
-				{ start: '##', format: 'h2' },
-				{ start: '###', format: 'h3' },
-				{ start: '####', format: 'h4' },
-				{ start: '#####', format: 'h5' },
-				{ start: '######', format: 'h6' },
-				{ start: '1. ', cmd: 'InsertOrderedList' },
-				{ start: '* ', cmd: 'InsertUnorderedList' },
-				{ start: '- ', cmd: 'InsertUnorderedList' },
-			],
-			content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+			placeholder: 'Start writing...',
+			readOnly: props.disabled
 		}
 
-		const handleUpdate = (value) => {
-			content.value = value
-			emit('update:modelValue', value)
+		const handleUpdate = () => {
+			if (quillInstance) {
+				const newContent = quillInstance.root.innerHTML
+				if (newContent !== content.value) {
+					content.value = newContent
+					emit('update:modelValue', newContent)
+				}
+			}
 		}
 
-		watch(() => props.modelValue, (newVal) => {
-			if (newVal !== content.value) {
-				content.value = newVal
+		onMounted(() => {
+			editorHeight.value = props.height || window.innerHeight - 200
+			
+			const editorElement = document.getElementById(editorId.value)
+			if (editorElement) {
+				quillInstance = new Quill(editorElement, editorConfig)
+				
+				if (props.modelValue) {
+					quillInstance.root.innerHTML = props.modelValue
+					content.value = props.modelValue
+					
+					setTimeout(() => {
+						const qlEditor = quillInstance.root
+						Array.from(qlEditor.querySelectorAll("*")).forEach(el => {
+							if (el.style.textAlign === "center") el.style.textAlign = "left"
+							if (el.style.maxWidth && parseFloat(el.style.maxWidth) < qlEditor.offsetWidth * 0.9) el.style.maxWidth = "100%"
+							if (el.style.width && parseFloat(el.style.width) < qlEditor.offsetWidth * 0.9) el.style.width = "100%"
+						})
+					}, 100)
+				}
+				
+				quillInstance.on("text-change", handleUpdate)
+				
+				if (props.disabled) {
+					quillInstance.enable(false)
+				}
 			}
 		})
 
-		onMounted(() => {
-			editorHeight.value = window.innerHeight - 200
+		watch(() => props.modelValue, (newVal) => {
+			if (quillInstance && newVal !== content.value) {
+				quillInstance.root.innerHTML = newVal || ''
+				content.value = newVal || ''
+			}
+		})
+
+		watch(() => props.disabled, (newVal) => {
+			if (quillInstance) {
+				quillInstance.enable(!newVal)
+			}
+		})
+
+		watch(() => props.height, (newVal) => {
+			editorHeight.value = newVal
+		})
+
+		onBeforeUnmount(() => {
+			if (quillInstance) {
+				quillInstance.off('text-change', handleUpdate)
+				quillInstance = null
+			}
 		})
 
 		return {
 			content,
-			editorConfig,
-			handleUpdate
+			editorHeight,
+			editorId
 		}
 	}
 }
 </script>
+
+<style scoped>
+[id^="quill-editor"] {
+	width: 100%;
+	display: block;
+}
+</style>
+
+<style>
+.ql-container {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	width: 100% !important;
+}
+
+.ql-editor {
+	min-height: 400px;
+	width: 100% !important;
+	max-width: 100% !important;
+}
+</style>
+
+		onMounted(() => {
+			editorHeight.value = props.height || window.innerHeight - 200
+			
+			const editorElement = document.getElementById(editorId.value)
+			if (editorElement) {
+				quillInstance = new Quill(editorElement, editorConfig)
+				
+				if (props.modelValue) {
+					quillInstance.root.innerHTML = props.modelValue
+					content.value = props.modelValue
+					
+					// Remove inline styles that constrain width
+					setTimeout(() => {
+						const qlEditor = quillInstance.root
+						Array.from(qlEditor.querySelectorAll('*')).forEach(el => {
+							if (el.style.textAlign === 'center') {
+								el.style.textAlign = 'left'
+							}
+							if (el.style.maxWidth && parseFloat(el.style.maxWidth) < qlEditor.offsetWidth) {
+								el.style.maxWidth = '100%'
+							}
+							if (el.style.width && parseFloat(el.style.width) < qlEditor.offsetWidth * 0.8) {
+								el.style.width = '100%'
+							}
+						})
+					}, 100)
+				}
+				
+				quillInstance.on('text-change', handleUpdate)
+				
+				if (props.disabled) {
+					quillInstance.enable(false)
+				}
+			}
+		})

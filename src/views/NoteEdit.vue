@@ -39,7 +39,7 @@
 				</div>
 			</span>
 		</div>
-		<TinyMCEEditor
+		<QuillEditor
 			v-model="note.content"
 			:disabled="!hasPermission(note, 'update')"
 			:height="editorHeight"
@@ -54,12 +54,12 @@ import { noteService } from '../services/noteService'
 import { notebookService } from '../services/notebookService'
 import { translate as t } from '@nextcloud/l10n'
 import { showSuccess, showError } from '@nextcloud/dialogs'
-import TinyMCEEditor from '../components/Editor.vue'
+import QuillEditor from '../components/Editor.vue'
 
 export default {
 	name: 'NoteEdit',
 	components: {
-		TinyMCEEditor
+		QuillEditor
 	},
 	props: {
 		id: {
